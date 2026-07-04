@@ -1,0 +1,21 @@
+.backgroundLayer {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.singleLogo {
+  opacity: 0.02;
+  width: 90vw;
+  max-width: 1000px;
+  height: 90vh;
+  background-image: url('/asko_3.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
