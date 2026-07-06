@@ -1,6 +1,8 @@
 import { NextResponse } from 'next/server';
 import { PrintfulService } from '@/lib/services/PrintfulService';
 
+export const dynamic = 'force-dynamic'; // Forzamos carga en tiempo real sin caché para desarrollo
+
 export async function GET() {
   try {
     const printful = new PrintfulService();

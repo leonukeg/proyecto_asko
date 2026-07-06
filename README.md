@@ -1,36 +1,54 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# ASKO - Arte que Viste (E-Commerce)
 
-## Getting Started
+Bienvenido al repositorio oficial de **ASKO**, una marca de ropa con actitud punk, diseño brutalista y automatización Print-on-Demand.
 
-First, run the development server:
+## 🚀 Tecnologías
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+Este proyecto está construido para ser rápido, moderno y completamente automatizado:
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- **Framework**: [Next.js 15+](https://nextjs.org/) (App Router & Server Components)
+- **Estilos**: Vanilla CSS Modules (Diseño Brutalista, Animaciones Glitch, Marquee infinito)
+- **Print-on-Demand**: Integración nativa con la API de [Printful](https://www.printful.com/) para sincronizar catálogo y enviar órdenes automáticamente.
+- **Pagos**: [Stripe](https://stripe.com/) (Checkout & Webhooks) - *En desarrollo*
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+## 🎨 Filosofía de Diseño ("El Vibe")
+ASKO no es una tienda limpia y aburrida. Utilizamos un sistema de diseño "Atomic Vibe":
+- **Grid Roto:** Márgenes asimétricos y desalineamiento intencionado.
+- **Texturas:** Efectos de corrosión y desgaste a través de máscaras CSS.
+- **Interacciones Agresivas:** Botones gigantes, animaciones de temblor (shake) y fallos visuales (glitches) en lugar de transiciones suaves.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## ⚙️ Arquitectura
 
-## Learn More
+- `src/app/page.jsx`: Landing principal que lista los productos sincrónicos (o mock) con tarjetas que tiemblan.
+- `src/app/producto/[id]/page.jsx`: **La Monstruosidad**. Página individual de producto Server-Side que extrae los datos y tallas en tiempo real desde Printful.
+- `src/lib/services/`: Clases independientes (`PrintfulService`, `StripeService`) inyectadas bajo el principio de agnosticismo.
 
-To learn more about Next.js, take a look at the following resources:
+## 🛠️ Cómo ejecutar en local
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+1. Instala las dependencias:
+   ```bash
+   npm install
+   ```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+2. Crea un archivo `.env` en la raíz del proyecto y añade tus claves maestras:
+   ```env
+   PRINTFUL_API_KEY=tu_clave_secreta
+   STRIPE_SECRET_KEY=tu_clave_secreta
+   STRIPE_WEBHOOK_SECRET=tu_clave_webhook
+   ```
 
-## Deploy on Vercel
+3. Levanta el servidor de desarrollo:
+   ```bash
+   npm run dev
+   ```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+4. Abre [http://localhost:3000](http://localhost:3000) en tu navegador.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 📜 Próximos Pasos (Roadmap)
+- [x] Sincronización de catálogo con Printful.
+- [x] Página brutalista individual de producto.
+- [ ] Enlace del botón "Hazlo Tuyo" con Stripe Checkout.
+- [ ] Webhook de Stripe para disparar `createOrder()` en Printful automáticamente.
+
+---
+*“ASKO NO RULES // ARTE QUE VISTE”*
