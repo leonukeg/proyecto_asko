@@ -2,26 +2,29 @@
 
 Bienvenido al repositorio oficial de **ASKO**, una marca de ropa con actitud punk, diseño brutalista y automatización Print-on-Demand.
 
-## 🚀 Tecnologías
+## 🚀 Arquitectura SEO y Tecnologías (Máquina de Buscadores)
 
-Este proyecto está construido para ser rápido, moderno y completamente automatizado:
+Este proyecto está construido para ser rápido, moderno, completamente automatizado y **optimizado al 100% para SEO**:
 
-- **Framework**: [Next.js 15+](https://nextjs.org/) (App Router & Server Components)
-- **Estilos**: Vanilla CSS Modules (Diseño Brutalista, Animaciones Glitch, Marquee infinito)
-- **Print-on-Demand**: Integración nativa con la API de [Printful](https://www.printful.com/) para sincronizar catálogo y enviar órdenes automáticamente.
-- **Pagos**: [Stripe](https://stripe.com/) (Checkout & Webhooks) - *En desarrollo*
+- **Framework**: [Next.js 15+](https://nextjs.org/) (App Router & Server Components). La página de inicio carga los productos de Printful *en el servidor*, entregando HTML puro a Google al instante.
+- **Microdatos (JSON-LD)**: Inyectamos Schema.org para que los buscadores entiendan que ASKO es una marca legítima de ropa streetwear.
+- **Metadatos y OpenGraph**: Etiquetas optimizadas para Twitter, WhatsApp e Instagram.
+- **Estilos**: Vanilla CSS Modules (Diseño Brutalista, Animaciones de péndulo, Marquee).
+- **Print-on-Demand**: Integración nativa con la API de [Printful](https://www.printful.com/) para sincronizar catálogo en tiempo real.
+- **Pagos**: [Stripe](https://stripe.com/) (Checkout & Webhooks) - *Próximamente*
 
 ## 🎨 Filosofía de Diseño ("El Vibe")
 ASKO no es una tienda limpia y aburrida. Utilizamos un sistema de diseño "Atomic Vibe":
-- **Grid Roto:** Márgenes asimétricos y desalineamiento intencionado.
-- **Texturas:** Efectos de corrosión y desgaste a través de máscaras CSS.
-- **Interacciones Agresivas:** Botones gigantes, animaciones de temblor (shake) y fallos visuales (glitches) en lugar de transiciones suaves.
+- **Fuentes Callejeras:** Títulos en `Permanent Marker` para un estilo graffiti/rotulador legible, contrastando con `Inter` para los detalles de compra.
+- **Grid Roto y Caos:** La página del producto elimina la estructura tradicional. Presenta la caja de información en el centro de la pantalla, rodeada por imágenes de los productos lanzadas aleatoriamente por los bordes.
+- **Interacciones Agresivas:** Animaciones de levitación (`float`), botones gigantes con animaciones de temblor (`shake`) y textos flotantes (`swingInOut`).
 
-## ⚙️ Arquitectura
+## ⚙️ Estructura del Proyecto
 
-- `src/app/page.jsx`: Landing principal que lista los productos sincrónicos (o mock) con tarjetas que tiemblan.
-- `src/app/producto/[id]/page.jsx`: **La Monstruosidad**. Página individual de producto Server-Side que extrae los datos y tallas en tiempo real desde Printful.
-- `src/lib/services/`: Clases independientes (`PrintfulService`, `StripeService`) inyectadas bajo el principio de agnosticismo.
+- `src/app/page.jsx`: Landing principal (Server Component) que carga productos y microdatos SEO.
+- `src/components/ui/ProductGrid.jsx`: Componente de cliente encargado del interactuar con el carrito y pagos.
+- `src/app/producto/[id]/page.jsx`: **La Monstruosidad**. Página de producto individual con layout caótico y determinista según el ID.
+- `src/lib/services/`: Clases independientes (`PrintfulService`, `StripeService`).
 
 ## 🛠️ Cómo ejecutar en local
 
@@ -44,9 +47,10 @@ ASKO no es una tienda limpia y aburrida. Utilizamos un sistema de diseño "Atomi
 
 4. Abre [http://localhost:3000](http://localhost:3000) en tu navegador.
 
-## 📜 Próximos Pasos (Roadmap)
+## 📜 Roadmap Actualizado
 - [x] Sincronización de catálogo con Printful.
-- [x] Página brutalista individual de producto.
+- [x] Página brutalista individual de producto (Layout Caótico).
+- [x] Refactorización de la Home a Server Components (Optimización SEO & JSON-LD).
 - [ ] Enlace del botón "Hazlo Tuyo" con Stripe Checkout.
 - [ ] Webhook de Stripe para disparar `createOrder()` en Printful automáticamente.
 

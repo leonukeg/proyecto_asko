@@ -1,106 +1,88 @@
-'use client';
-
-import { useState, useEffect } from 'react';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
 import Hero from '@/components/sections/Hero';
-import ProductCard from '@/components/ui/ProductCard';
+import ProductGrid from '@/components/ui/ProductGrid';
+import { PrintfulService } from '@/lib/services/PrintfulService';
 import styles from './page.module.css';
 
-export default function Home() {
-  const [products, setProducts] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState(null);
-  const [checkoutLoadingId, setCheckoutLoadingId] = useState(null);
+export const revalidate = 3600; // Revalidate every hour
 
-  useEffect(() => {
-    const fetchProducts = async () => {
-      try {
-        const response = await fetch('/api/products');
-        if (!response.ok) throw new Error('Failed to load products');
-        const data = await response.json();
-        setProducts(data);
-      } catch (err) {
-        setError(err.message);
-      } finally {
-        setIsLoading(false);
+export const metadata = {
+  title: 'ASKO | Ropa Urbana y Camisetas con Alma Propia',
+  description: 'Descubre diseños originales de artistas independientes que rompen moldes. ASKO es ropa urbana, streetwear y diseño brutalista sin reglas.',
+  keywords: 'ropa urbana, streetwear, camisetas originales, arte independiente, diseño brutalista, moda punk, ASKO',
+  openGraph: {
+    title: 'ASKO | Arte que Viste',
+    description: 'Camisetas con actitud. Diseños originales que rompen moldes.',
+    url: 'https://asko-store.vercel.app',
+    siteName: 'ASKO',
+    images: [
+      {
+        url: '/logo.png', // Fallback to logo or you can use a real poster image
+        width: 800,
+        height: 600,
+      },
+    ],
+    locale: 'es_ES',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'ASKO | Arte que Viste',
+    description: 'Ropa urbana y streetwear sin reglas.',
+    images: ['/logo.png'],
+  },
+};
+
+export default async function Home() {
+  const printful = new PrintfulService();
+  let products = [];
+  let error = null;
+
+  try {
+    const data = await printful.getProducts();
+    products = data || [];
+  } catch (err) {
+    console.error("Error cargando productos en el servidor:", err);
+    error = "No pudimos conectar con el taller. Los artistas están descansando.";
+  }
+
+  // Schema.org JSON-LD for Organization & Website
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    name: 'ASKO',
+    url: 'https://asko-store.vercel.app',
+    description: 'Ropa urbana, streetwear y diseño brutalista sin reglas.',
+    publisher: {
+      '@type': 'Organization',
+      name: 'ASKO',
+      logo: {
+        '@type': 'ImageObject',
+        url: 'https://asko-store.vercel.app/logo.png'
       }
-    };
-
-    fetchProducts();
-  }, []);
-
-  const handleAddToCart = async (product) => {
-    setCheckoutLoadingId(product.id);
-    try {
-      const response = await fetch('/api/checkout', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ 
-          items: [{ 
-            name: product.name, 
-            price: product.retail_price, 
-            image: product.thumbnail_url || 'https://via.placeholder.com/400x500?text=ASKO'
-          }] 
-        })
-      });
-      
-      const { url } = await response.json();
-      if (url) {
-        window.location.href = url;
-      }
-    } catch (err) {
-      console.error("Error during checkout:", err);
-      alert("Hubo un problema al procesar tu pago.");
-    } finally {
-      setCheckoutLoadingId(null);
     }
   };
 
   return (
     <main className={styles.main}>
+      {/* Inyección de JSON-LD para SEO */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      
       <Header />
       <Hero />
       
       <section id="colecciones" className={`container ${styles.section}`}>
-        
-        {/* State: Loading */}
-        {isLoading && (
-          <div className={styles.productGrid}>
-            {[1, 2, 3, 4].map(n => (
-              <div key={n} style={{ height: '400px', backgroundColor: 'var(--color-background-elevated)', borderRadius: 'var(--radius-md)', animation: 'pulse 2s infinite' }}></div>
-            ))}
-          </div>
-        )}
-
-        {/* State: Error */}
-        {error && !isLoading && (
+        {error ? (
           <div className={styles.errorState}>
             <h3>Error al cargar las colecciones</h3>
             <p>{error}</p>
           </div>
-        )}
-
-        {/* State: Empty */}
-        {!isLoading && !error && products.length === 0 && (
-          <div className={styles.emptyState}>
-            <h3>No hay productos disponibles por ahora.</h3>
-            <p>Vuelve pronto para ver nuestras nuevas colecciones.</p>
-          </div>
-        )}
-
-        {/* State: Data */}
-        {!isLoading && !error && products.length > 0 && (
-          <div className={styles.productGrid}>
-            {products.map(product => (
-              <ProductCard 
-                key={product.id} 
-                product={product} 
-                onAddToCart={handleAddToCart}
-                isLoadingAction={checkoutLoadingId === product.id}
-              />
-            ))}
-          </div>
+        ) : (
+          <ProductGrid initialProducts={products} />
         )}
       </section>
       

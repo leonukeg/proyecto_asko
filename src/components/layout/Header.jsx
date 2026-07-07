@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
+import Link from 'next/link';
 import styles from './Header.module.css';
 
 export default function Header() {
@@ -23,10 +24,10 @@ export default function Header() {
       transition={{ type: 'spring', stiffness: 100, damping: 20 }}
     >
       <div className={`container ${styles.headerInner}`}>
-        <div className={styles.logo}>
+        <Link href="/" className={styles.logo}>
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src="/logo.png" alt="ASKO Logo" className={styles.logoImage} />
-        </div>
+        </Link>
         
         <nav className={styles.nav}>
           <a href="#colecciones" className={styles.navLink}>Colecciones</a>

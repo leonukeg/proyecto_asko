@@ -43,6 +43,16 @@ export default async function ProductPage({ params }) {
   // Extraemos un precio base (de la primera variante)
   const basePrice = sync_variants?.[0]?.retail_price || '30.00';
 
+  // Función para rotación aleatoria pero constante basada en el ID
+  const getRotation = (idStr, index) => {
+    let hash = 0;
+    for (let i = 0; i < idStr.length; i++) {
+        hash = idStr.charCodeAt(i) + ((hash << 5) - hash);
+    }
+    hash = Math.abs(hash * (index + 7) * 13);
+    return (hash % 70) - 35; // Ángulo aleatorio entre -35 y 35
+  };
+
   return (
     <main className={styles.pageContainer}>
       <Header />
@@ -56,18 +66,24 @@ export default async function ProductPage({ params }) {
 
       <section className={styles.productWrapper}>
         
-        {/* COLUMNA IZQUIERDA: IMAGEN CON GLITCH Y MÁSCARA */}
-        <div className={styles.imageColumn}>
-          <div className={styles.glitchImageWrapper}>
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img 
-              src={sync_product.thumbnail_url || 'https://via.placeholder.com/600x800'} 
-              alt={sync_product.name} 
-            />
-          </div>
+        {/* IMÁGENES A LO LOCO DE FONDO (REDUCIDAS A 2 Y TOTALMENTE VISIBLES) */}
+        <div className={styles.scatterContainer}>
+          {[1, 2].map((num) => (
+            <div 
+              key={num} 
+              className={`${styles.scatterImage} ${styles[`scatter${num}`]}`}
+              style={{ '--random-rot': `${getRotation(id, num)}deg` }}
+            >
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img 
+                src={sync_product.thumbnail_url || 'https://via.placeholder.com/600x800'} 
+                alt={`${sync_product.name} - copia ${num}`} 
+              />
+            </div>
+          ))}
         </div>
 
-        {/* COLUMNA DERECHA: INFO Y CONTROLES INTERACTIVOS */}
+        {/* COLUMNA CENTRAL: INFO Y CONTROLES INTERACTIVOS */}
         <div className={styles.infoColumn}>
           <h1 className={styles.title} data-text={sync_product.name.toUpperCase()}>
             {sync_product.name.toUpperCase()}
@@ -82,7 +98,6 @@ export default async function ProductPage({ params }) {
             product={sync_product} 
             variants={sync_variants} 
           />
-          
         </div>
 
       </section>

@@ -24,12 +24,13 @@ export default function Hero() {
           </div>
 
           <h1 className={styles.title}>
+            <span style={{ position: 'absolute', width: '1px', height: '1px', overflow: 'hidden', clip: 'rect(0,0,0,0)' }}>ASKO Ropa Urbana y Streetwear: </span>
             EXPRESA <br />
             LO QUE <span className={styles.highlight}>ERES</span>
           </h1>
 
           <p className={styles.description}>
-            Diseños originales de artistas <br />
+            Camisetas streetwear y diseños originales de artistas <br />
             que rompen moldes.
           </p>
 
