@@ -13,7 +13,7 @@ export default async function ProductPage({ params }) {
   // En Next.js 15+, 'params' es una Promesa y debe ser esperada (await)
   const { id } = await params;
   
-  // Instanciamos el servicio y buscamos la camiseta
+  // Instanciamos el servicio y buscamos la tshirt
   const printful = new PrintfulService();
   let productData = null;
   let error = null;
@@ -57,7 +57,7 @@ export default async function ProductPage({ params }) {
     <main className={styles.pageContainer}>
       <Header />
       
-      {/* MARQUEE GIGANTE DE FONDO */}
+      {/* Background Marquee */}
       <div className={styles.marqueeContainer}>
         <div className={styles.marqueeText}>
           ASKO NO RULES // ARTE QUE VISTE // ASKO NO RULES // ARTE QUE VISTE //
@@ -66,7 +66,7 @@ export default async function ProductPage({ params }) {
 
       <section className={styles.productWrapper}>
         
-        {/* IMÁGENES A LO LOCO DE FONDO (REDUCIDAS A 2 Y TOTALMENTE VISIBLES) */}
+        {/* Background scattered images */}
         <div className={styles.scatterContainer}>
           {[1, 2].map((num) => (
             <div 
@@ -83,9 +83,9 @@ export default async function ProductPage({ params }) {
           ))}
         </div>
 
-        {/* COLUMNA CENTRAL: INFO Y CONTROLES INTERACTIVOS */}
+        {/* Main Product Column */}
         <div className={styles.infoColumn}>
-          <h1 className={styles.title} data-text={sync_product.name.toUpperCase()}>
+          <h1 className={`${styles.title} glitch`} data-text={sync_product.name.toUpperCase()}>
             {sync_product.name.toUpperCase()}
           </h1>
           
@@ -93,7 +93,7 @@ export default async function ProductPage({ params }) {
             ${basePrice}
           </div>
 
-          {/* Componente de cliente para elegir talla y comprar */}
+          {/* Interactive controls (Size & Cart) */}
           <ProductInteractiveControls 
             product={sync_product} 
             variants={sync_variants} 

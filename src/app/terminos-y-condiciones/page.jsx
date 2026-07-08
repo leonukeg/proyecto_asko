@@ -24,7 +24,7 @@ export default function TerminosCondiciones() {
           <p>Dado que nuestros productos se imprimen bajo demanda, el tiempo de preparación suele ser de 2 a 5 días hábiles. El tiempo de envío dependerá de la ubicación del usuario y será calculado en la pantalla de pago. ASKO no se hace responsable de los retrasos ocasionados por la empresa de mensajería o aduanas.</p>
           
           <h2>5. Política de Devoluciones y Desistimiento</h2>
-          <p>Al tratarse de productos impresos bajo demanda específicamente para cada pedido, de acuerdo con el art. 103 de la Ley 3/2014, de 27 de marzo, no se aceptan devoluciones por "arrepentimiento" o error de talla. Únicamente se aceptarán reclamaciones si el producto llega dañado o existe un defecto de fabricación, en cuyo caso deberá notificarse en un plazo máximo de 14 días desde la recepción.</p>
+          <p>Al tratarse de productos impresos bajo demanda específicamente para cada pedido, de acuerdo con el art. 103 de la Ley 3/2014, de 27 de marzo, no se aceptan devoluciones por &quot;arrepentimiento&quot; o error de talla. Únicamente se aceptarán reclamaciones si el producto llega dañado o existe un defecto de fabricación, en cuyo caso deberá notificarse en un plazo máximo de 14 días desde la recepción.</p>
           
           <h2>6. Ley Aplicable y Jurisdicción</h2>
           <p>Estas condiciones se regirán e interpretarán conforme a la legislación española. Para la resolución de cualquier controversia las partes se someten a los juzgados y tribunales del domicilio del consumidor.</p>

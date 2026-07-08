@@ -8,12 +8,12 @@ import styles from './page.module.css';
 export const revalidate = 3600; // Revalidate every hour
 
 export const metadata = {
-  title: 'ASKO | Ropa Urbana y Camisetas con Alma Propia',
+  title: 'ASKO | Ropa Urbana y Tshirts con Alma Propia',
   description: 'Descubre diseños originales de artistas independientes que rompen moldes. ASKO es ropa urbana, streetwear y diseño brutalista sin reglas.',
-  keywords: 'ropa urbana, streetwear, camisetas originales, arte independiente, diseño brutalista, moda punk, ASKO',
+  keywords: 'ropa urbana, streetwear, tshirts originales, arte independiente, diseño brutalista, moda punk, ASKO',
   openGraph: {
     title: 'ASKO | Arte que Viste',
-    description: 'Camisetas con actitud. Diseños originales que rompen moldes.',
+    description: 'Tshirts con actitud. Diseños originales que rompen moldes.',
     url: 'https://asko-store.vercel.app',
     siteName: 'ASKO',
     images: [
@@ -66,7 +66,7 @@ export default async function Home() {
 
   return (
     <main className={styles.main}>
-      {/* Inyección de JSON-LD para SEO */}
+      {/* Structured Data JSON-LD */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}

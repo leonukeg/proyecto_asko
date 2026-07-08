@@ -1,0 +1,49 @@
+.main {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: var(--color-background);
+}
+
+.content {
+  flex: 1;
+  padding: 150px var(--spacing-xl) var(--spacing-3xl);
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.title {
+  font-size: clamp(3rem, 8vw, 5rem);
+  color: var(--color-primary);
+  text-transform: uppercase;
+  margin-bottom: var(--spacing-2xl);
+  line-height: 1;
+  text-shadow: 4px 4px 0px var(--color-accent);
+}
+
+.manifesto {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xl);
+}
+
+.manifesto p {
+  font-size: 1.25rem;
+  line-height: 1.6;
+  color: var(--color-text);
+}
+
+.highlight {
+  color: var(--color-primary);
+  font-weight: 700;
+  font-size: 1.5rem;
+}
+
+.accent {
+  color: var(--color-accent);
+  font-family: var(--font-display);
+  font-size: 2rem;
+  text-transform: uppercase;
+  display: block;
+  margin-top: var(--spacing-lg);
+}

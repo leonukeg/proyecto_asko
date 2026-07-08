@@ -30,9 +30,8 @@ export default function Header() {
         </Link>
         
         <nav className={styles.nav}>
-          <a href="#colecciones" className={styles.navLink}>Colecciones</a>
-          <a href="#personaliza" className={styles.navLink}>Personaliza</a>
-          <a href="#sobre-asko" className={styles.navLink}>Sobre ASKO</a>
+          <Link href="/drops" className={styles.navLink}>DROPS</Link>
+          <Link href="/sobre-nosotros" className={styles.navLink}>Sobre ASKO</Link>
         </nav>
 
         <div className={styles.actions}>

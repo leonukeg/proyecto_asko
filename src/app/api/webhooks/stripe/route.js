@@ -39,7 +39,7 @@ export async function POST(req) {
       const customerEmail = session.customer_details.email;
       const shippingDetails = session.shipping_details;
       
-      // Aquí recuperaríamos los productos de la metadata de la sesión o del line_items
+      // TODO: Retrieve products from session metadata or line_items
       // Asumiremos que mandamos el printful_variant_id y la cantidad en la metadata
       
       // 3. Preparamos los datos para enviar la orden a Printful
