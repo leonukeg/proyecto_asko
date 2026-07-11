@@ -1,20 +1,11 @@
 .card {
   display: flex;
-  flex-direction: column;
-  gap: var(--spacing-md);
+  flex-direction: row;
+  gap: var(--spacing-sm);
   position: relative;
   /* El borde ya no es redondeado, dejamos que la máscara haga el corte irregular */
   border-radius: 0;
-  overflow: hidden;
   background-color: var(--color-background-card);
-  
-  /* Efecto Loco de Corrosión / Desgastado */
-  mask-image: url('/grunge-mask.png');
-  mask-size: 100% 100%;
-  mask-mode: luminance;
-  -webkit-mask-image: url('/grunge-mask.png');
-  -webkit-mask-size: 100% 100%;
-  -webkit-mask-repeat: no-repeat;
 }
 
 .empty {
@@ -30,6 +21,14 @@
   aspect-ratio: 4/5;
   overflow: hidden;
   border-radius: var(--radius-md);
+
+  /* Efecto Loco de Corrosión / Desgastado */
+  mask-image: url('/grunge-mask.png');
+  mask-size: 100% 100%;
+  mask-mode: luminance;
+  -webkit-mask-image: url('/grunge-mask.png');
+  -webkit-mask-size: 100% 100%;
+  -webkit-mask-repeat: no-repeat;
 }
 
 @keyframes shake {
@@ -58,21 +57,36 @@
   animation-iteration-count: infinite;
 }
 
-.info {
+.contentContainer {
   display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  padding: 0 var(--spacing-sm) var(--spacing-sm);
+  flex-direction: column;
+  flex: 1;
 }
 
-.name {
-  font-size: 1.1rem;
+.info {
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-start;
+  padding: var(--spacing-sm) var(--spacing-sm);
+}
+
+.nameContainer {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding-bottom: 40px; /* Aligns with price area roughly */
+}
+
+.nameVertical {
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  font-size: 1.5rem;
   font-weight: 700;
   margin: 0;
-  text-overflow: ellipsis;
-  overflow: hidden;
+  text-transform: uppercase;
+  font-family: var(--font-display);
+  color: var(--color-text);
   white-space: nowrap;
-  max-width: 70%;
 }
 
 .price {

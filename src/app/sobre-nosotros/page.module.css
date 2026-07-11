@@ -12,14 +12,6 @@
   margin: 0 auto;
 }
 
-.title {
-  font-size: clamp(3rem, 8vw, 5rem);
-  color: var(--color-primary);
-  text-transform: uppercase;
-  margin-bottom: var(--spacing-2xl);
-  line-height: 1;
-  text-shadow: 4px 4px 0px var(--color-accent);
-}
 
 .manifesto {
   display: flex;

@@ -57,13 +57,6 @@ export default async function ProductPage({ params }) {
     <main className={styles.pageContainer}>
       <Header />
       
-      {/* Background Marquee */}
-      <div className={styles.marqueeContainer}>
-        <div className={styles.marqueeText}>
-          ASKO NO RULES // ARTE QUE VISTE // ASKO NO RULES // ARTE QUE VISTE //
-        </div>
-      </div>
-
       <section className={styles.productWrapper}>
         
         {/* Background scattered images */}
@@ -83,11 +76,12 @@ export default async function ProductPage({ params }) {
           ))}
         </div>
 
-        {/* Main Product Column */}
         <div className={styles.infoColumn}>
-          <h1 className={`${styles.title} glitch`} data-text={sync_product.name.toUpperCase()}>
-            {sync_product.name.toUpperCase()}
-          </h1>
+          <div className="global-title-wrapper" style={{ borderBottomColor: 'transparent' }}>
+            <h1 className="global-page-title glitch" data-text={sync_product.name.toUpperCase()}>
+              {sync_product.name.toUpperCase()}
+            </h1>
+          </div>
           
           <div className={styles.price}>
             ${basePrice}

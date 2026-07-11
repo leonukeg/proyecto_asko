@@ -62,13 +62,13 @@ button {
 .glitch::before {
   left: 3px;
   text-shadow: -2px 0 var(--color-accent);
-  animation: glitch-anim 2s infinite linear alternate-reverse;
+  animation: glitch-anim 5s infinite linear alternate-reverse;
 }
 
 .glitch::after {
   left: -3px;
   text-shadow: -2px 0 var(--color-primary);
-  animation: glitch-anim 3s infinite linear alternate-reverse;
+  animation: glitch-anim 7s infinite linear alternate-reverse;
 }
 
 @keyframes glitch-anim {
@@ -78,4 +78,114 @@ button {
   60% { clip-path: inset(80% 0 5% 0); }
   80% { clip-path: inset(10% 0 70% 0); }
   100% { clip-path: inset(30% 0 40% 0); }
+}
+
+/* GLOBAL COMPONENT UTILITIES */
+
+/* Global Page Titles */
+.global-title-wrapper {
+  text-align: center;
+  margin-bottom: var(--spacing-2xl);
+}
+
+.global-page-title {
+  font-size: 5rem;
+  line-height: 1;
+  text-transform: uppercase;
+  margin: 0;
+  display: inline-block; /* To ensure glitch effect works inside centered wrapper */
+}
+
+@media (max-width: 768px) {
+  .global-page-title {
+    font-size: 3rem;
+  }
+}
+
+/* Global Industrial Button */
+.btn-industrial {
+  display: inline-block;
+  background: var(--color-primary);
+  color: #000;
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 900;
+  padding: var(--spacing-md) var(--spacing-2xl);
+  text-transform: uppercase;
+  transition: all 0.2s;
+  text-decoration: none;
+  border-radius: 6px;
+  position: relative;
+  cursor: pointer;
+  border: none;
+  text-align: center;
+}
+
+.btn-industrial:disabled {
+  background: #555;
+  color: #888;
+  cursor: not-allowed;
+}
+
+/* Electric Sparks Effect */
+.btn-industrial::before,
+.btn-industrial::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 10px;
+  background: transparent;
+  pointer-events: none;
+}
+
+.btn-industrial::before {
+  width: 2px;
+  height: 20px;
+}
+
+.btn-industrial::after {
+  width: 25px;
+  height: 2px;
+}
+
+.btn-industrial:not(:disabled):hover::before {
+  animation: electric-sparks-1 0.4s infinite linear;
+}
+
+.btn-industrial:not(:disabled):hover::after {
+  animation: electric-sparks-2 0.3s infinite linear;
+}
+
+@keyframes electric-sparks-1 {
+  0% { 
+    box-shadow: -5px -5px 0 0 var(--color-primary); 
+    opacity: 1; 
+    transform: rotate(-30deg) translateY(0);
+  }
+  50% {
+    box-shadow: -15px -30px 0 0 var(--color-primary), 5px -20px 0 0 #fff;
+    opacity: 0.8;
+  }
+  100% { 
+    box-shadow: -25px -60px 0 0 transparent, 15px -40px 0 0 transparent; 
+    opacity: 0; 
+    transform: rotate(-45deg) translateY(-20px);
+  }
+}
+
+@keyframes electric-sparks-2 {
+  0% { 
+    box-shadow: -5px 5px 0 0 #fff; 
+    opacity: 1; 
+    transform: rotate(15deg) translateX(0);
+  }
+  50% {
+    box-shadow: -35px 10px 0 0 #fff, -20px 5px 0 0 var(--color-primary);
+    opacity: 0.8;
+  }
+  100% { 
+    box-shadow: -65px 15px 0 0 transparent, -40px 10px 0 0 transparent; 
+    opacity: 0; 
+    transform: rotate(5deg) translateX(-20px);
+  }
 }

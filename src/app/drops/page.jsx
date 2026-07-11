@@ -29,8 +29,8 @@ export default async function DropsPage() {
       <Header />
       
       <section className={`container ${styles.section}`}>
-        <div className={styles.header}>
-          <h1 className={`${styles.title} glitch`} data-text="NUESTRO ARSENAL">NUESTRO ARSENAL</h1>
+        <div className="global-title-wrapper">
+          <h1 className="global-page-title glitch" data-text="NUESTRO ARSENAL">NUESTRO ARSENAL</h1>
           <p className={styles.description}>Sin reglas. Sin filtros. Solo diseño puro.</p>
         </div>
 

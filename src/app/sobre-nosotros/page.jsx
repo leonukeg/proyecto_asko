@@ -13,31 +13,69 @@ export default function SobreNosotros() {
       <Header />
       
       <section className={styles.content}>
-        <h1 className={`${styles.title} glitch`} data-text="EL MANIFIESTO">EL MANIFIESTO</h1>
+        <div className="global-title-wrapper" style={{ borderBottomColor: 'transparent' }}>
+          <h1 className="global-page-title glitch" data-text="EL MANIFIESTO">EL MANIFIESTO</h1>
+        </div>
         
         <div className={styles.manifesto}>
-          <p>
-            <span className={styles.highlight}>ASKO</span> no nació para encajar en escaparates limpios ni para seguir las reglas de la moda rápida. 
-            Nació del ruido de la calle, de la cultura underground y de la necesidad de llevar encima arte que grite en lugar de susurrar.
+          <p className={styles.accent}>
+            ASKO
           </p>
-          
           <p>
-            En un mundo saturado de copias y diseños genéricos generados en masa, nosotros apostamos por lo brutalista. 
-            Cada pieza de nuestro catálogo es una declaración de intenciones. No hacemos uniformes; hacemos <span className={styles.highlight}>Arte que Viste</span>.
+            No hacemos camisetas. Creamos piezas para quienes nunca encajaron.
           </p>
-          
           <p>
-            <span className={styles.accent}>CERO COPIAS. 100% ACTITUD.</span>
+            <span className={styles.highlight}>ASKO</span> no está hecha para todos. Si buscas una camiseta bonita, probablemente estés en el sitio equivocado.
+          </p>
+          <p>
+            Nace de la obsesión por el arte underground, la cultura alternativa y todo aquello que se sale del molde. Nos inspiran las portadas de discos, los garabatos en una pared, el caos de una ciudad, el humor incómodo, la estética punk, el rock, los cómics, los errores, los personajes extraños y esos pequeños momentos cotidianos que la mayoría pasa por alto.
+          </p>
+          <p>
+            Aquí convertimos lo cotidiano en extraño, lo incómodo en arte y lo grotesco en identidad. Nos alimentamos del punk, del rock, del underground, de las portadas que marcaron generaciones, de la cultura callejera y de todas esas ideas que nunca encontrarías en un escaparate convencional.
           </p>
 
-          <p>
-            Trabajamos bajo demanda porque rechazamos la sobreproducción y el desperdicio industrial. 
-            Tú eliges el diseño que te representa, y nosotros lo materializamos con la máxima calidad exclusivamente para ti.
+          <p className={styles.highlight}>
+            Cada diseño es una declaración de intenciones
           </p>
-          
           <p>
-            Si buscas básicos aburridos, estás en el lugar equivocado. 
-            Si buscas expresar lo que eres sin pedir permiso... bienvenido al equipo.
+            Trabajamos con artistas que entienden que lo imperfecto tiene más personalidad que lo correcto, y que lo grotesco puede ser bello cuando tiene algo que decir. Cada ilustración nace para romper con lo correcto.
+          </p>
+          <p>
+            <span className={styles.accent} style={{ fontSize: '1.5rem', marginTop: '10px' }}>Sin filtros. Sin normas. Sin pedir permiso.</span>
+          </p>
+
+          <p className={styles.highlight}>
+            El producto
+          </p>
+          <p>
+            Estampamos sobre algodón de calidad mediante impresión DTF de alta calidad, para que cada ilustración conserve toda su fuerza, color y detalle, y el arte sobreviva al tiempo.
+          </p>
+          <p>
+            Porque una camiseta no debería ser un simple básico: debería hablar antes que tú. Puede durar años, pero una actitud dura toda la vida.
+          </p>
+
+          <p className={styles.highlight}>
+            La web
+          </p>
+          <p>
+            Nuestra web sigue la misma filosofía. No queremos que navegues por otra tienda online más, ni que simplemente compres.
+          </p>
+          <p>
+            Queremos que entres, explores, descubras cada animación, cada detalle, cada interacción — y salgas con la sensación de haber estado en un lugar que no se parece a ningún otro.
+          </p>
+
+          <p className={styles.highlight}>
+            Filosofía
+          </p>
+          <p>
+            ASKO no busca gustarle a todo el mundo. Solo a quienes entienden que la personalidad nunca estuvo hecha para seguir normas.
+          </p>
+          <p>
+            No seguimos tendencias. Las ignoramos.
+          </p>
+
+          <p className={styles.accent} style={{ marginTop: 'var(--spacing-2xl)' }}>
+            ASKO. Arte para los que nunca necesitaron encajar.
           </p>
         </div>
       </section>

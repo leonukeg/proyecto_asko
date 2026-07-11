@@ -7,7 +7,9 @@ export default function PoliticaPrivacidad() {
     <main>
       <Header />
       <div className={styles.container}>
-        <h1 className={styles.title}>Política de Privacidad</h1>
+        <div className="global-title-wrapper" style={{ borderBottomColor: 'transparent' }}>
+          <h1 className="global-page-title glitch" data-text="POLÍTICA DE PRIVACIDAD">Política de Privacidad</h1>
+        </div>
         <div className={styles.content}>
           <p>Última actualización: {new Date().toLocaleDateString('es-ES')}</p>
           

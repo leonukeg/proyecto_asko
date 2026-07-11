@@ -1,0 +1,244 @@
+.main {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--color-background);
+  color: var(--color-text);
+  padding-top: 100px;
+}
+
+/* Grid Layout */
+.cartContainer {
+  flex: 1;
+  padding: var(--spacing-2xl) 0;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Empty State */
+.emptyState {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 100px 20px;
+  gap: var(--spacing-xl);
+}
+
+.emptyState h2 {
+  font-family: var(--font-display);
+  font-size: 3rem;
+  color: var(--color-border);
+  text-transform: uppercase;
+}
+.cartGrid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: var(--spacing-2xl);
+  align-items: start;
+}
+
+/* Items List */
+.itemsList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+}
+
+.cartItem {
+  display: grid;
+  grid-template-columns: 100px 1fr auto auto auto;
+  gap: var(--spacing-xl);
+  align-items: center;
+  background: rgba(20, 20, 20, 0.8);
+  border: 1px solid var(--color-border);
+  padding: var(--spacing-md);
+  transition: border-color 0.3s;
+}
+
+.cartItem:hover {
+  border-color: var(--color-primary);
+}
+
+.itemImage {
+  width: 100px;
+  height: 120px;
+  object-fit: cover;
+  border: 1px solid var(--color-border);
+}
+
+.itemInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.itemName {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  margin: 0;
+  color: var(--color-text);
+}
+
+.itemSize {
+  color: var(--color-primary);
+  font-family: var(--font-display);
+  margin: 0;
+}
+
+.itemPrice {
+  color: #888;
+  font-family: var(--font-base);
+  margin: 0;
+}
+
+.itemControls {
+  display: flex;
+  align-items: center;
+  border: 1px solid var(--color-border);
+}
+
+.qtyButton {
+  background: transparent;
+  color: var(--color-text);
+  border: none;
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.qtyButton:hover {
+  background: var(--color-text);
+  color: var(--color-background);
+}
+
+.qtyNumber {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  width: 40px;
+  text-align: center;
+}
+
+.itemTotal {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  color: var(--color-text);
+  min-width: 80px;
+  text-align: right;
+}
+
+.removeButton {
+  background: transparent;
+  color: var(--color-accent);
+  border: 2px solid var(--color-accent);
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.removeButton:hover {
+  background: var(--color-accent);
+  color: var(--color-background);
+  transform: rotate(90deg);
+}
+
+/* Summary Panel */
+.summaryPanel {
+  background: #0a0a0a;
+  border: 2px solid var(--color-border);
+  padding: var(--spacing-xl);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+  position: sticky;
+  top: 120px;
+}
+
+.summaryTitle {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  color: var(--color-text);
+  border-bottom: 2px dashed var(--color-border);
+  padding-bottom: var(--spacing-sm);
+  margin-bottom: var(--spacing-sm);
+  text-transform: uppercase;
+}
+
+.summaryLine {
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--font-base);
+  color: #888;
+  font-size: 1.1rem;
+}
+
+.summaryTotal {
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--font-display);
+  font-size: 2rem;
+  color: var(--color-primary);
+  margin-top: var(--spacing-md);
+  padding-top: var(--spacing-md);
+  border-top: 2px dashed var(--color-border);
+}
+
+.checkoutButton {
+  width: 100%;
+  margin-top: var(--spacing-xl);
+  font-size: 1.8rem;
+}
+
+@media (max-width: 1024px) {
+  .cartGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .pageTitle {
+    font-size: 3rem;
+  }
+  
+  .cartItem {
+    grid-template-columns: 80px 1fr;
+    grid-template-rows: auto auto auto;
+  }
+  
+  .itemImage {
+    grid-row: 1 / span 3;
+    width: 80px;
+    height: 100px;
+  }
+  
+  .itemInfo {
+    grid-column: 2;
+  }
+  
+  .itemControls {
+    grid-column: 2;
+    justify-self: start;
+  }
+  
+  .itemTotal {
+    grid-column: 2;
+    text-align: left;
+  }
+  
+  .removeButton {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+  }
+  
+  .cartItem {
+    position: relative;
+  }
+}

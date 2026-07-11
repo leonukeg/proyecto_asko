@@ -4,10 +4,6 @@
   margin: 0 auto;
 }
 
-.title {
-  margin-bottom: var(--spacing-xl);
-  color: var(--color-primary);
-}
 
 .content {
   color: var(--color-text-muted);

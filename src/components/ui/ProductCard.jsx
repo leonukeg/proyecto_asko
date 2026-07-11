@@ -28,13 +28,17 @@ export default function ProductCard({ product }) {
         viewport={{ once: true, margin: "-50px" }}
         transition={{ duration: 0.5 }}
       >
-        <div className={styles.imageContainer}>
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src={imageUrl} alt={product.name} className={styles.image} />
+        <div className={styles.nameContainer}>
+          <h3 className={styles.nameVertical}>{product.name}</h3>
         </div>
-        <div className={styles.info}>
-          <h3 className={styles.name}>{product.name}</h3>
-          <p className={styles.price}>${product.retail_price || '30.00'}</p>
+        <div className={styles.contentContainer}>
+          <div className={styles.imageContainer}>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src={imageUrl} alt={product.name} className={styles.image} />
+          </div>
+          <div className={styles.info}>
+            <p className={styles.price}>${product.retail_price || '30.00'}</p>
+          </div>
         </div>
       </motion.div>
     </Link>

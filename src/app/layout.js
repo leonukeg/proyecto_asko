@@ -1,5 +1,6 @@
 import "./globals.css";
 import BackgroundLayer from "@/components/layout/BackgroundLayer";
+import { CartProvider } from "@/context/CartContext";
 
 export const metadata = {
   title: "ASKO | Arte que Viste",
@@ -10,8 +11,10 @@ export default function RootLayout({ children }) {
   return (
     <html lang="es">
       <body>
-        <BackgroundLayer />
-        {children}
+        <CartProvider>
+          <BackgroundLayer />
+          {children}
+        </CartProvider>
       </body>
     </html>
   );

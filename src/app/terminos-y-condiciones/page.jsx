@@ -7,7 +7,9 @@ export default function TerminosCondiciones() {
     <main>
       <Header />
       <div className={styles.container}>
-        <h1 className={styles.title}>Términos y Condiciones</h1>
+        <div className="global-title-wrapper" style={{ borderBottomColor: 'transparent' }}>
+          <h1 className="global-page-title glitch" data-text="TÉRMINOS Y CONDICIONES">Términos y Condiciones</h1>
+        </div>
         <div className={styles.content}>
           <p>Última actualización: {new Date().toLocaleDateString('es-ES')}</p>
           
