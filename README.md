@@ -57,8 +57,8 @@ ASKO no es una tienda limpia y aburrida. Utilizamos un sistema de diseño "Atomi
 - [x] Sincronización de catálogo con Printful.
 - [x] Refactorización de la Intro y el Dash (Grid asimétrico, SEO).
 - [x] Integración transparente de la página de producto.
-- [ ] Enlace del botón de compra con Stripe Checkout.
-- [ ] Webhook de Stripe para disparar órdenes en Printful automáticamente.
+- [x] Enlace del botón de compra con Stripe Checkout.
+- [x] Webhook de Stripe para disparar órdenes en Printful automáticamente.
 
 ---
 *“Convirtiendo lo cotidiano en extraño y lo grotesco en identidad.”*

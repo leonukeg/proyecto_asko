@@ -24,14 +24,44 @@ export class StripeService {
     }
 
     try {
+      // Create a simplified metadata object for the webhook to read
+      const orderMetadata = {
+        items: JSON.stringify(items.map(item => ({
+          id: item.id,
+          variantId: item.selectedVariantId || item.id, // ID de variante de Printful
+          size: item.size,
+          quantity: item.quantity
+        })))
+      };
+
       const session = await this.stripe.checkout.sessions.create({
-        payment_method_types: ['card'],
+        // Al omitir `payment_method_types`, Stripe carga automáticamente
+        // lo que tengas activado en el panel (tarjetas, paypal, google pay, etc.)
+        shipping_address_collection: {
+          allowed_countries: ['US', 'CA', 'ES', 'MX', 'GB', 'FR', 'DE'], // Paises soportados
+        },
+        shipping_options: [
+          {
+            shipping_rate_data: {
+              type: 'fixed_amount',
+              fixed_amount: {
+                amount: 500, // $5.00 envío fijo (ejemplo)
+                currency: 'usd',
+              },
+              display_name: 'Envío Estándar Printful',
+              delivery_estimate: {
+                minimum: { unit: 'business_day', value: 5 },
+                maximum: { unit: 'business_day', value: 10 },
+              },
+            },
+          },
+        ],
         line_items: items.map(item => ({
           price_data: {
             currency: 'usd',
             product_data: {
-              name: item.name,
-              images: [item.image],
+              name: `${item.name} - Talla ${item.size}`,
+              images: item.image ? [item.image] : [],
             },
             unit_amount: Math.round(item.price * 100), // Stripe expects cents
           },
@@ -40,6 +70,7 @@ export class StripeService {
         mode: 'payment',
         success_url: successUrl,
         cancel_url: cancelUrl,
+        metadata: orderMetadata,
       });
 
       return { url: session.url };

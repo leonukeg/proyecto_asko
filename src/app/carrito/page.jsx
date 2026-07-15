@@ -21,20 +21,22 @@ export default function CartPage() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ 
           items: cartItems.map(item => ({
-            name: `${item.name} (${item.size})`,
+            id: item.id,
+            name: item.name,
+            size: item.size,
             price: item.price,
             image: item.image,
-            variant_id: item.variant_id,
+            selectedVariantId: item.variant_id,
             quantity: item.quantity
           }))
         })
       });
       
-      const { url } = await response.json();
-      if (url) {
-        window.location.href = url;
+      const data = await response.json();
+      if (data.url) {
+        window.location.href = data.url;
       } else {
-        alert("Algo salió mal al conectar con el banco.");
+        alert("Error de Stripe: " + (data.error || "Error desconocido al conectar con el banco."));
         setIsProcessing(false);
       }
     } catch (err) {
@@ -135,11 +137,22 @@ export default function CartPage() {
 
               <button 
                 className={`btn-industrial ${styles.checkoutButton}`}
-                disabled={cartItems.length === 0}
-                onClick={() => alert("Checkout flow - Integración Stripe pendiente")}
+                disabled={cartItems.length === 0 || isProcessing}
+                onClick={handleCheckout}
               >
                 {isProcessing ? 'CONECTANDO...' : 'PAGAR AHORA'}
               </button>
+
+              <div className={styles.paymentMethods}>
+                <span className={styles.secureText}>PAGO SEGURO POR STRIPE</span>
+                <div className={styles.badges}>
+                  <span className={styles.badge}>VISA</span>
+                  <span className={styles.badge}>MC</span>
+                  <span className={styles.badge}>AMEX</span>
+                  <span className={styles.badge}>APPLE PAY</span>
+                  <span className={styles.badge}>G PAY</span>
+                </div>
+              </div>
             </div>
           </div>
         )}

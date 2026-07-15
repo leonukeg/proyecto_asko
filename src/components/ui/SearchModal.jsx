@@ -18,9 +18,7 @@ export default function SearchModal({ isOpen, onClose }) {
       setTimeout(() => inputRef.current?.focus(), 100);
     } else {
       document.body.style.overflow = 'unset';
-      // eslint-disable-next-line react-hooks/set-state-in-effect
       setQuery('');
-      // eslint-disable-next-line react-hooks/set-state-in-effect
       setResults([]);
     }
     return () => { document.body.style.overflow = 'unset'; };

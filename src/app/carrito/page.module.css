@@ -196,6 +196,41 @@
   font-size: 1.8rem;
 }
 
+.paymentMethods {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-sm);
+  margin-top: var(--spacing-md);
+  border-top: 1px dashed var(--color-border);
+  padding-top: var(--spacing-md);
+}
+
+.secureText {
+  font-family: var(--font-base);
+  font-size: 0.7rem;
+  color: #666;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+}
+
+.badge {
+  font-family: var(--font-display);
+  font-size: 0.75rem;
+  padding: 4px 8px;
+  border: 1px solid var(--color-border);
+  color: var(--color-text);
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 4px;
+}
+
 @media (max-width: 1024px) {
   .cartGrid {
     grid-template-columns: 1fr;

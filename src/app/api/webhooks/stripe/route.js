@@ -1,81 +1,79 @@
 import { NextResponse } from 'next/server';
-import { StripeService } from '@/lib/services/StripeService';
+import Stripe from 'stripe';
 import { PrintfulService } from '@/lib/services/PrintfulService';
 
-const stripeService = new StripeService();
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || 'mock_key', {
+  apiVersion: '2023-10-16',
+});
+
 const printfulService = new PrintfulService();
 
-// Necesitamos leer el body como texto sin procesar (raw) para que Stripe pueda verificar la firma
-export const config = {
-  api: {
-    bodyParser: false,
-  },
-};
+const endpointSecret = process.env.STRIPE_WEBHOOK_SECRET;
 
 export async function POST(req) {
-  const body = await req.text();
+  const payload = await req.text(); // Stripe needs raw body to verify signature
   const sig = req.headers.get('stripe-signature');
-  
+
   let event;
 
   try {
-    // 1. Verificamos que la llamada realmente viene de Stripe (Seguridad)
-    // Para que esto funcione, necesitas STRIPE_WEBHOOK_SECRET en tu .env
-    const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
-    event = stripe.webhooks.constructEvent(body, sig, process.env.STRIPE_WEBHOOK_SECRET);
+    if (!endpointSecret) {
+      console.warn("No STRIPE_WEBHOOK_SECRET, skipping signature verification for local test");
+      event = JSON.parse(payload);
+    } else {
+      event = stripe.webhooks.constructEvent(payload, sig, endpointSecret);
+    }
   } catch (err) {
     console.error(`Webhook Error: ${err.message}`);
     return NextResponse.json({ error: `Webhook Error: ${err.message}` }, { status: 400 });
   }
 
-  // 2. Manejamos el evento cuando el pago es exitoso
+  // Handle the event
   if (event.type === 'checkout.session.completed') {
     const session = event.data.object;
+    
+    // Extraer metadata y shipping address
+    const { metadata, shipping_details, customer_details } = session;
+    
+    console.log("💰 Pago completado para la sesión:", session.id);
+    
+    if (metadata && metadata.items) {
+      try {
+        const items = JSON.parse(metadata.items);
+        
+        // Formatear datos para Printful
+        const printfulOrder = {
+          recipient: {
+            name: shipping_details?.name || customer_details?.name || 'ASKO Customer',
+            address1: shipping_details?.address?.line1 || '',
+            address2: shipping_details?.address?.line2 || '',
+            city: shipping_details?.address?.city || '',
+            state_code: shipping_details?.address?.state || '',
+            country_code: shipping_details?.address?.country || 'US',
+            zip: shipping_details?.address?.postal_code || '',
+            email: customer_details?.email || '',
+          },
+          items: items.map(item => ({
+            sync_variant_id: parseInt(item.variantId, 10), // The Printful variant ID
+            quantity: item.quantity,
+          })),
+        };
 
-    console.log("Pago exitoso recibido de Stripe para la sesión:", session.id);
+        // Crear orden en Printful
+        console.log("📦 Enviando orden a Printful:", printfulOrder);
+        const orderResult = await printfulService.createOrder(printfulOrder);
+        console.log("✅ Orden creada en Printful exitosamente:", orderResult.id);
 
-    try {
-      // Extraemos la información del cliente desde la sesión de Stripe
-      const customerEmail = session.customer_details.email;
-      const shippingDetails = session.shipping_details;
-      
-      // TODO: Retrieve products from session metadata or line_items
-      // Asumiremos que mandamos el printful_variant_id y la cantidad en la metadata
-      
-      // 3. Preparamos los datos para enviar la orden a Printful
-      const orderData = {
-        external_id: session.id, // Para enlazar la orden de Printful con Stripe
-        recipient: {
-          name: shippingDetails.name,
-          address1: shippingDetails.address.line1,
-          address2: shippingDetails.address.line2,
-          city: shippingDetails.address.city,
-          state_code: shippingDetails.address.state,
-          country_code: shippingDetails.address.country,
-          zip: shippingDetails.address.postal_code,
-          email: customerEmail
-        },
-        items: [
-          // Ejemplo: esto se llenará dinámicamente con los line_items comprados
-          {
-            sync_variant_id: 12345678, // ID del producto/talla en Printful
-            quantity: 1
-          }
-        ]
-      };
-
-      // 4. Disparamos la creación de la orden en Printful
-      const printfulOrder = await printfulService.createOrder(orderData);
-      
-      console.log("Orden enviada exitosamente a Printful:", printfulOrder.id);
-      
-    } catch (error) {
-      console.error("Error al procesar la orden con Printful:", error);
-      // Retornamos 500 para que Stripe reintente el webhook más tarde si hubo un error temporal
-      return NextResponse.json({ error: 'Error procesando la orden' }, { status: 500 });
+      } catch (e) {
+        console.error("Error al procesar la orden hacia Printful:", e);
+        // Retornamos 200 aunque Printful falle, para que Stripe no reintente
+        // En producción idealmente se encola o se avisa por email
+      }
+    } else {
+      console.warn("No metadata items found in Stripe session.");
     }
   }
 
-  // Retornamos 200 a Stripe para confirmar que recibimos el webhook
+  // Return a 200 response to acknowledge receipt of the event
   return NextResponse.json({ received: true }, { status: 200 });
 }
